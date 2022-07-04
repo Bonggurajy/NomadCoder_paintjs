@@ -1,9 +1,10 @@
 const $canvas = document.querySelector('#jsCanvas')
 const ctx = $canvas.getContext('2d');
 const $colors = document.querySelectorAll('.jsColor');
+const $range = document.querySelector('#jsRange');
 
 ctx.strokeStyle = 'black'; //default값. handleColorClick함수가 실행되면 override되고 설정한 color가 할당된다.
-ctx.lineWidth = 1;
+ctx.lineWidth = 2.5;
 
 $canvas.width = 550;
 $canvas.height = 600;
@@ -31,9 +32,14 @@ function onMouseMove (event) {
 function stopPainting () {
 	painting = false;
 }
+
 function handleColorClick (event) {
 	const color = event.target.style.backgroundColor;
 	ctx.strokeStyle = color;
+}
+function handleWidthRange (event) {
+	const lineWidth = event.target.value;
+	ctx.lineWidth = lineWidth;
 }
 
 if($canvas) {
@@ -46,3 +52,6 @@ if($canvas) {
 
 Array.from($colors).forEach((element) => { return element.addEventListener('click', handleColorClick)});
 
+if($range) {
+	$range.addEventListener('input', handleWidthRange)
+}
